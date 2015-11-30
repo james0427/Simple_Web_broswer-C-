@@ -12,6 +12,8 @@ namespace Simple_Web_Browser
 {
     public partial class Form1 : Form
     {
+        //Creates a new instance of Properties called form2
+        static PropertiesForm form2 = new PropertiesForm();
         public Form1()
         {
             InitializeComponent();
@@ -55,6 +57,20 @@ namespace Simple_Web_Browser
             button1.Enabled = false;
             textBox1.Enabled = false;
             webBrowser1.Navigate(textBox1.Text);
+        }
+
+        /// <summary>
+        /// New method which passes in the saved homepage from Form2
+        /// Navigates to the homepage when pressed
+        /// </summary>
+        /// <param name="homePagesite"></param>
+        private void homeNavigate(string homePagesite)
+        {
+            toolStripStatusLabel1.Text = "Page loading";
+            button1.Enabled = false;
+            textBox1.Enabled = false;
+            textBox1.Text = homePagesite;
+            webBrowser1.Navigate(homePagesite);
         }
 
         /// <summary>
@@ -107,8 +123,8 @@ namespace Simple_Web_Browser
         {
             if (e.MaximumProgress > 0 && e.CurrentProgress > 0)
             {
-                toolStripProgressBar1.ProgressBar.Maximum = (int)((e.CurrentProgress *100) / e.MaximumProgress) + 1;
-                toolStripProgressBar1.ProgressBar.Value = (int)((e.CurrentProgress *100) / e.MaximumProgress);
+                toolStripProgressBar1.ProgressBar.Maximum = (int)((e.CurrentProgress * 100) / e.MaximumProgress) + 1;
+                toolStripProgressBar1.ProgressBar.Value = (int)((e.CurrentProgress * 100) / e.MaximumProgress);
             }
 
             toolStripStatusLabel1.Text = "Loading completed";
@@ -122,6 +138,26 @@ namespace Simple_Web_Browser
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+        /// <summary>
+        /// Shows the properties panel when clicked from the settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           form2.Show();
+        }
+        /// <summary>
+        /// Home button clicked
+        /// Called the homeNavifate method which passes in the homepage got from the getter method
+        /// in the property form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            homeNavigate(form2.getHomePage());
         }
     }
 }
